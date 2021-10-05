@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
-import AuthUser from 'src/common/decorators/auth-user.decorator';
+import AuthUser from 'src/modules/auth/decodators/auth.decorator';
 import { AuthGuard } from '@nestjs/passport';
 
 import { UserRoleValidationPipe } from 'src/validations/user/user-role-validation.pipe';
@@ -8,6 +8,8 @@ import { User } from '../user/models/entities/user.entity';
 import { AuthService } from './auth.service';
 import { AuthResponse } from './models/entities/auth-response.dto';
 import { UserLoginDto } from './models/entities/user-login.dto';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { RolesGuard } from '../../common/guards/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -28,8 +30,9 @@ export class AuthController {
     }
 
     /* get logged user details */
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('admin')
     @Get('/profile')
-    @UseGuards(AuthGuard('jwt'))
     getLoggedUser(@AuthUser() user: User): User {
         return user;
     }
