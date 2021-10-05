@@ -1,32 +1,40 @@
 import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { UserRole } from 'src/enums/role.enum';
 
 @Entity()
 export class User extends BaseEntity {
+    @ApiProperty()
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ApiProperty()
     @Column()
     firstName: string;
 
+    @ApiProperty()
     @Column()
     lastName: string;
 
+    @ApiProperty()
     @Column({ unique:true })
     email: string;
 
     @Column()
     password: string;
 
+    @ApiProperty()
     @Column({ type: "enum", enum: UserRole, default: UserRole.USER })
     role: UserRole;
 
+    @ApiProperty()
     @Column()
     @CreateDateColumn()
     createdAt: Date;
 
+    @ApiProperty()
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
