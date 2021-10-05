@@ -10,9 +10,9 @@ import { UserErrors } from '../../shared/errors/user/user.errors';
 export class UserService {
 
     constructor(@InjectRepository(User) private userRepository:Repository<User>) {}
-
+    
+    /* create new user */
     async createUser(@Body() createUserDto:CreateUserDto): Promise<User> {
-
         const user = await this.userRepository.create(createUserDto);
         try {
             await user.save();  
@@ -26,4 +26,14 @@ export class UserService {
         delete user.password;
         return user;   
     }
+
+    /* find user by email */
+    async findUserByEmail(email: string) {
+        return await User.findOne({
+            where: {
+                email: email,
+            },
+        });
+    }
+    
 }
