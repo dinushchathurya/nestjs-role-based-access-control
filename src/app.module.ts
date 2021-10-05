@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { UserModule } from './modules/user/user.module';
+
 @Module({
   imports: [
-    ConfigModule.forRoot([
+    ConfigModule.forRoot({
       isGlobal: true,
-    ]),
+    }),
     TypeOrmModule.forRoot({
         type: process.env.DB_TYPE as any,
         host: process.env.DB_HOST,
@@ -16,7 +18,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         database: process.env.DB_NAME,
         entities: ['dist/**/*.entity.js'],
         synchronize: true,
-    })
+    }),
+    UserModule
   ],
   controllers: [],
   providers: [],
