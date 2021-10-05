@@ -6,8 +6,14 @@ export const UserErrors = {
     },
 
     NotFound: {
-        apiErrorCode: 'E_0002_0002',
-        errorMessage: 'User not found',
-        reason: `Provided user ids doesn't exist in DB`
-    }
+        statusCode: 404,
+        message: 'Email not exists',
+        error: "NotFound Error"
+    },
+
+    Unauthorized: {
+        statusCode: 401,
+        message: 'Invalid credentials',
+        error: "Unauthorized Error"
+    },
 }
