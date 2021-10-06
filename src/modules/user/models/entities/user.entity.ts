@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { UserRole } from 'src/enums/role.enum';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,10 +23,12 @@ export class User extends BaseEntity {
     @Column({ unique:true })
     email: string;
 
+    @Exclude({ toPlainOnly: true })
     @Column()
     password: string;
 
     @ApiProperty()
+    // @Exclude({ toPlainOnly: true })
     @Column({ type: "enum", enum: UserRole, default: UserRole.USER })
     role: UserRole;
 
@@ -47,4 +50,5 @@ export class User extends BaseEntity {
     async validatePassword(password: string): Promise<boolean> {
         return bcrypt.compare(password, this.password);
     }
+
 }

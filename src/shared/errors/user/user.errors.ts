@@ -16,4 +16,10 @@ export const UserErrors = {
         message: 'Invalid credentials',
         error: "Unauthorized Error"
     },
+
+    UserNotFound: {
+        statusCode: 404,
+        message: 'User not exists',
+        error: "NotFound Error"
+    },
 }
