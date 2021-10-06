@@ -1,9 +1,10 @@
-import { ClassSerializerInterceptor, Controller, Get, NotAcceptableException, Param, UseInterceptors } from '@nestjs/common';
-import { serialize, deserialize } from 'class-transformer';
+import { ClassSerializerInterceptor, Controller, Get, NotAcceptableException, Param, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { UserService } from './user.service';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/common/guards/roles.guard';
+import { Roles } from 'src/common/decorators/roles.decorator';
 import { User } from './models/entities/user.entity';
-import { UserResponse } from '././models/dto/response/user.response';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('user')
@@ -11,14 +12,19 @@ export class UserController {
 
     constructor(private readonly userService:UserService) { }
 
+    @UseGuards(AuthGuard('jwt'), RolesGuard)
+    @Roles('admin')
     @Get()
-    getAllUsers() {
-        return this.userService.getAllUsers();
+    async getAllUsers() {
+        return await this.userService.getAllUsers();
     }
     
     @Get('/:id')
-    getUserById(@Param('id') id:number): Promise<UserResponse> {
-        return this.userService.getUserByID(id);
+    async findByEmail(@Param('id') id: number): Promise<User>{
+       return await this.userService.findUserById(id);
     }
+
     
 }
+
+

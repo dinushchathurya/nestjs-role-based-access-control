@@ -28,7 +28,7 @@ export class User extends BaseEntity {
     password: string;
 
     @ApiProperty()
-    @Exclude({ toPlainOnly: true })
+    // @Exclude({ toPlainOnly: true })
     @Column({ type: "enum", enum: UserRole, default: UserRole.USER })
     role: UserRole;
 
@@ -50,4 +50,5 @@ export class User extends BaseEntity {
     async validatePassword(password: string): Promise<boolean> {
         return bcrypt.compare(password, this.password);
     }
+
 }
