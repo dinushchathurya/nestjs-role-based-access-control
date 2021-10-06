@@ -5,7 +5,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/models/entities/user.entity';
 import { UserLoginDto } from './models/entities/user-login.dto';
 import { UserErrors } from 'src/shared/errors/user/user.errors';
-import { CreateUserDto } from '../user/models/dto/create-user.dto';
+import { CreateUserDto } from '../user/models/dto/request/create-user.dto';
 import { AuthResponse } from './models/entities/auth-response.dto';
 
 @Injectable()
