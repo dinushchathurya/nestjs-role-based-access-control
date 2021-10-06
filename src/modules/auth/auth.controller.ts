@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {ApiOperation, ApiBadRequestResponse, ApiConflictResponse, ApiInternalServerErrorResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiQuery, ApiTags} from '@nestjs/swagger';
 
 import { UserRoleValidationPipe } from 'src/validations/user/user-role-validation.pipe';
-import { CreateUserDto } from '../user/models/dto/create-user.dto';
+import { CreateUserDto } from '../user/models/dto/request/create-user.dto';
 import { User } from '../user/models/entities/user.entity';
 import { AuthService } from './auth.service';
 import { AuthResponse } from './models/entities/auth-response.dto';
